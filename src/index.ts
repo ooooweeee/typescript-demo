@@ -10,6 +10,7 @@ function encodeDec(func: any) {
   };
 }
 
+// @ts-ignore
 @encodeDec
 class Person {
   _name: string = '';
@@ -18,4 +19,4 @@ class Person {
   }
 }
 const person = new Person();
-console.log(person.printName());
+(person as any).printName();
