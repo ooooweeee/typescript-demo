@@ -1,22 +1,22 @@
-function encodeDec(func: any) {
-  return class Temp extends func {
-    constructor() {
-      super();
-      this._name = 'zhang';
-    }
-    printName() {
-      console.log(this._name);
-    }
+function encodeDec() {
+  return function <T extends new (...args: any[]) => any>(constructor: T) {
+    return class extends constructor {
+      _name = 'wang';
+      getName() {
+        console.log(this.name);
+      }
+    };
   };
 }
 
-// @ts-ignore
-@encodeDec
-class Person {
-  _name: string = '';
-  get name() {
-    return this._name;
+const Person = encodeDec()(
+  class {
+    _name: string = 'zhang';
+    get name() {
+      return this._name;
+    }
   }
-}
+);
+
 const person = new Person();
-(person as any).printName();
+person.getName();
